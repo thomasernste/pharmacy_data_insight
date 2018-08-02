@@ -1,0 +1,4 @@
+drug_name,drug_cost,count_value
+CHLORPROMAZINE,2,3000
+BENZTROPINE MESYLATE,1,1500
+AMBIEN,2,300
