@@ -1,4 +1,6 @@
-# Insight Data Engineering - Pharmacy Drugs and Price Counting                         ~ Thomas Ernste
+<div style="text-align: right"> ~ Thomas Ernste </div>
+
+# Insight Data Engineering - Pharmacy Drugs and Price Counting
 
 This repository contains a project used to process data from a large list of pharmaceutical drugs sold by online pharmacies. The source code, written in Python 3, reads an input .txt file, processes the file, and generates an output .txt file that includes the name of each drug in the input list, a count of the number of medical professionals have prescribed that drug, and the total sum cost of all instances of each drug that appear in the input file. The data is sorted first in descending order by price and secondly (if the total sum cost is the same for two drugs) in descending order alphabetically by the drug name.
 
