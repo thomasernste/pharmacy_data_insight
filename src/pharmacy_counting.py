@@ -1,52 +1,36 @@
 import csv
 import sys
-from collections import defaultdict
+from itertools import islice
 
 
-def filter_pharm_data(input_data_txt, output_data_txt):
+def process_pharm_data(input_data_txt, output_data_txt):
 
-    #Open the file from the first argument (input_data_txt) and read it in as a list
-    with open(input_data_txt, 'r') as file:
-        reader = csv.reader(file)
-        pharm_input = list(reader)
+    drug_dict = {}
+    with open(input_data_txt, "r") as file:
+        skipped = islice(file, 1, None)
+        for i, line in enumerate(skipped, 2):
+            try:
+                number, last, first, drug, price = line.split(',')
+            except ValueError:
+                pass
+            try:
+                a = round(float(price), 2)
+                price = a
+            except ValueError:
+                b = int(price)
+                price = b
 
-    # Preserve only the columns I need from the input data array to complete the data processing
-    for row in pharm_input:
-        del row[:3]
-    pharm_input[0].insert(5, 'count_value')
-    for row in pharm_input[1:]:
-        row.insert(3, 1)
+            if drug not in drug_dict:
+                drug_dict[drug] = [1, price]
+            else:
+                drug_dict[drug][0] += 1
+                drug_dict[drug][1] += price
 
+    final_sorted_list = sorted(drug_dict.items(), key=lambda d: (d[1][1], d[0]), reverse=True)
 
-    count_dict = {}  # Initialize final dict that will contain output data
-    cost_dict = {}
+    final_array = [[row[0], row[1][0], round(row[1][1], 2)] if round(row[1][1]) != row[1][1] else [row[0], row[1][0],
+                            round(row[1][1])] for row in final_sorted_list]
 
-    for drug, cost, counter in pharm_input[1:]:
-    # # #     #if the user value for a row is equal to some 'ip' address, iterate through all of these ip addresses
-
-        if drug in count_dict:
-            count_dict[drug] += 1
-        else:
-            count_dict[drug] = counter
-
-        if drug in cost_dict:
-            cost_dict[drug] += int(cost)
-        else:
-            cost_dict[drug] = int(cost)
-
-    final_dict = defaultdict(list)
-
-
-    for d in (count_dict, cost_dict):  # you can list as many input dicts as you want here
-        for key, value in d.items():
-            final_dict[key].append(value)
-
-    final_dict = dict(final_dict)
-
-    final_sorted_list = sorted(final_dict.items(), key=lambda kv: (-kv[1][1], kv[0]))
-
-
-    final_array = [[row[0], row[1][0], row[1][1]] for row in final_sorted_list]
     final_array.insert(0, ['drug_name', 'num_prescriber', 'total_cost'])
 
     with open(output_data_txt, 'w') as myfile:
@@ -54,10 +38,12 @@ def filter_pharm_data(input_data_txt, output_data_txt):
         for i in final_array:
             wr.writerow(i)
 
+# process_pharm_data('../input/itcont.txt', '../output/top_cost_drug.txt')
+
 def main():
     input_data_txt = sys.argv[1]
     output_data_txt = sys.argv[2]
-    filter_pharm_data(input_data_txt, output_data_txt)
+    process_pharm_data(input_data_txt, output_data_txt)
 
 if __name__ == '__main__':
-	main()
+    main()
