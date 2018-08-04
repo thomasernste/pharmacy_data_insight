@@ -26,9 +26,9 @@ def process_pharm_data(input_data_txt, output_data_txt):
 
             # Because the drug prices on the input files can be either integers
             # (whole dollar figures with no cents) or floats (dollar figures
-            # that include cents), This try and except block enables rounding
-            # the drug prices to 2 decimal places only if the input data are
-            # floats with dollars and cents data
+            # that include cents), this try and except block enables rounding
+            # the drug prices to 2 decimal places, but only if the input data
+            # are floats with dollars and cents data
             try:
                 a = round(float(price), 2)
                 price = a
@@ -36,19 +36,24 @@ def process_pharm_data(input_data_txt, output_data_txt):
                 b = int(price)
                 price = b
 
-            # This if/else block creates the drug name grouped with the id as
-            # the key in a dictionary if the drug+id does not yet appear. The
-            # '$' and id here add to the drug name to create a unique drug+id
-            # combination for each prescriber of each drug. The corresponding
-            # value for this key is a list of 2 items including a counter for
-            # the drug+id (a counter for the 'num_prescriber' column that
-            # counts each prescriber once for each drug) and the price of the
-            # first instance of that drug. If the drug+id does already appear,
-            # the code under the "else" clause then adds the price value of
-            # that drug+id to the price that already corresponds with that
-            # drug+id.
+            # This if/else block reads teh data into a dictionary. The drug
+            # names grouped with the prescribers' first and last names are the
+            # keys in the dictionary. The if clause adds this key if the drug +
+            # first name + last name combination does not yet appear. The
+            # '$' here divides the drug names from the prescriber names,
+            # creating a unique character to use as a split character that will
+            # be useful below for creating a new dictionary that preserves the
+            # drug names and removes the prescriber names. The corresponding
+            # value for this key is a list of 2 items including (1) a counter
+            # for the drug + prescriber name (a counter for the 'num_prescriber'
+            # column that counts each prescriber once for each drug) and (2) a
+            # running sum total of the price of all of the prescribed drugs.
             if drug + '$' + first + last not in drug_dict:
                 drug_dict[drug + '$' + first + last] = [1, price]
+            # If the drug + prescriber name already appears in the
+            # dictionary, the code in the "else" clause adds the price
+            # value of that drug + prescriber name to the price that already
+            # corresponds with that drug + prescriber name.
             else:
                 drug_dict[drug + '$' + first + last][1] += price
 
@@ -87,7 +92,6 @@ def process_pharm_data(input_data_txt, output_data_txt):
         for i in final_array:
             wr.writerow(i)
 
-# process_pharm_data('../input/itcont.txt', '../output/top_cost_drug.txt')
 
 # This block allows execution of the process_pharm_data function from the
 # run.sh shell script with the appropriate input and output files included
