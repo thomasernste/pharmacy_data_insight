@@ -1,4 +1,4 @@
-<div style="text-align: right"> ~ Thomas Ernste </div>
+#### Thomas Ernste
 
 # Insight Data Engineering - Pharmacy Drugs and Price Counting
 
