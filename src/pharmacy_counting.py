@@ -28,8 +28,10 @@ def process_pharm_data(input_data_txt, output_data_txt):
 
     final_sorted_list = sorted(drug_dict.items(), key=lambda d: (d[1][1], d[0]), reverse=True)
 
-    final_array = [[row[0], row[1][0], round(row[1][1], 2)] if round(row[1][1]) != row[1][1] else [row[0], row[1][0],
-                            round(row[1][1])] for row in final_sorted_list]
+    final_array = [[row[0], row[1][0], round(row[1][1])] for row in final_sorted_list]
+
+    # final_array = [[row[0], row[1][0], round(row[1][1], 2)] if round(row[1][1]) != row[1][1] else [row[0], row[1][0],
+    #                         round(row[1][1])] for row in final_sorted_list]
 
     final_array.insert(0, ['drug_name', 'num_prescriber', 'total_cost'])
 
