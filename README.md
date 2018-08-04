@@ -14,11 +14,11 @@ The original input dataset (itcont.txt, in the input directory) came from the Ce
 
 The Python libraries used in the source code include:
 
-- islice (from itertools, which enables skipping the header line in the process of reading in the input file and writing the data to a dict)
+- **islice** - (imported from itertools, this library enables skipping the header line in the process of reading in the input file and writing the data to a dict)
 
-- csv (needed for writing final array to .txt file)
+- **csv** - (needed for writing final array to .txt file)
 
-- sys (enables reading the function arguments)
+- **sys** - (enables reading the function arguments)
 
 
 
