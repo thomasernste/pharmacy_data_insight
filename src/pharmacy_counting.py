@@ -80,7 +80,8 @@ def process_pharm_data(input_data_txt, output_data_txt):
     # clauses that enable rounding float values to two places while ensuring
     # that original integer values (with no cents values) will remain integers.
 
-    final_array = [[row[0], row[1][0], round(row[1][1], 2)] if round(row[1][1]) - row[1][1] != 0 else [row[0], row[1][0], round(row[1][1])]
+    final_array = [[row[0], row[1][0], round(row[1][1], 2)] if round(row[1][1])
+                    - row[1][1] != 0 else [row[0], row[1][0], round(row[1][1])]
                         for row in final_sorted_list]
 
     # This line inserts a header row at position 0 in the final array
