@@ -93,7 +93,6 @@ def process_pharm_data(input_data_txt, output_data_txt):
         for i in final_array:
             wr.writerow(i)
 
-
 # This block allows execution of the process_pharm_data function from the
 # run.sh shell script with the appropriate input and output files included
 # in the run.sh shell script and run_tests.sh test script.
