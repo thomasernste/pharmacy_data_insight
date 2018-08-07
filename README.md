@@ -1,6 +1,8 @@
 #### Thomas Ernste
 
-# Insight Data Engineering - Pharmacy Drugs and Price Counting
+# Insight Data Engineering:
+
+# Counting Pharmaceutical Drugs by Prescriber and Adding Total Drug Price
 
 This repository contains a project used to process data from a large list of pharmaceutical drugs sold by online pharmacies. The source code, written in Python 3, reads an input .txt file, processes the file, and generates an output .txt file that includes the name of each drug in the input list, a count of the number of medical professionals who have prescribed that drug, and the total sum cost of all instances of each drug that appear in the input file. The data is sorted first in descending order by price and secondly (if the total sum cost is the same for two or more drugs) in descending order alphabetically by the drug name.
 
@@ -46,4 +48,6 @@ A test script called run_tests.sh is included to facilitate testing the source c
 
 `insight_testsuite~$ ./run_tests.sh`
 
-There are two tests included in this repository: one for a small input dataset in which the drug prices are represented as integers (just whole dollar amounts, no cents), and a second larger input dataset in which the drug prices are represented as floats (dollar amounts with cents). As I explain in my code documentation, the different integer and float datatypes required different coding considerations for adding up and rounding the drug prices and to arrive at the desired output data. Notably, this code also successfully processed a file that was much larger than either of the two files in the included tests. However, Github's file size limitations prevented uploading this file for testing.
+There are two tests included in this repository: one for a small input dataset in which the drug prices are represented as integers (just whole dollar amounts, no cents), and a second larger input dataset in which the drug prices are represented as floats (dollar amounts with cents). As I explain in my code documentation, the different integer and float data types in these two datasets required different coding considerations for adding up and rounding the drug prices and to arrive at the desired output data. 
+
+Notably, this code also successfully processed a file that was much larger than either of the two files in the included tests. However, Github's file size limitations prevented uploading this file for testing.
