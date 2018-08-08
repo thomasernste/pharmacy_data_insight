@@ -36,30 +36,31 @@ def process_pharm_data(input_data_txt, output_data_txt):
                 b = int(price)
                 price = b
 
-            # This if/else block reads teh data into a dictionary. The drug
-            # names grouped with the prescribers' first and last names are the
-            # keys in the dictionary. The if clause adds this key if the drug +
-            # first name + last name combination does not yet appear. The
-            # '$' here divides the drug names from the prescriber names,
-            # creating a unique character to use as a split character that will
-            # be useful below for creating a new dictionary that preserves the
-            # drug names and removes the prescriber names. The corresponding
-            # value for this key is a list of 2 items including (1) a counter
-            # for the drug + prescriber name (a counter for the 'num_prescriber'
-            # column that counts each prescriber once for each drug) and (2) a
-            # running sum total of the price of all of the prescribed drugs.
+            # This if/else block reads the data into a dictionary. The drug
+            # names grouped with the '$' sign and the prescribers' first and
+            # last names are the keys in the dictionary. The if clause adds this
+            # key if the drug + first name + last name combination does not yet
+            # appear. The '$' here divides the drug names from the prescriber
+            # names, creating a unique character to use as a split character
+            # that will be used below in the creation of a new dictionary that
+            # preserves only the drug names and removes the prescriber names for
+            # the final drug name column. The corresponding value for the key in
+            # this dict is alist of 2 items including (1) a counter for the the
+            # 'num_prescriber' column that counts each prescriber once for each
+            # drug) and (2) a running sum total of the price of all of the
+            # prescribed drugs.
             if drug + '$' + first + last not in drug_dict:
                 drug_dict[drug + '$' + first + last] = [1, price]
-            # If the drug + prescriber name already appears in the
+            # If the drug + '$' + prescriber name already appears in the
             # dictionary, the code in the "else" clause adds the price
             # value of that drug + prescriber name to the price that already
             # corresponds with that drug + prescriber name.
             else:
                 drug_dict[drug + '$' + first + last][1] += price
 
-        # This block removes the '$' and id value from the previous dictionary,
-        # adds the counter that counts the num_prescribers, and adds the dollar
-        # value for the particular drug in question
+        # This block removes the '$' and first annd last name values from the
+        # previous dictionary, adds the counter that counts the num_prescribers,
+        # and adds the total price value for the particular drug in question.
         drug_dict2 = {}
         for k, v in drug_dict.items():
             if k.split('$', 1)[0] not in drug_dict2:
